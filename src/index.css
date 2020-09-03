@@ -76,3 +76,22 @@ label {
   transform: scale(0.1);
   transition: all 1500ms linear;
 }
+
+.Alert-enter . {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.Alert-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: all transform 500ms;
+}
+.Alert-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.Alert-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all transform 500ms;
+}

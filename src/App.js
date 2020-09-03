@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { CSSTransition } from "react-transition-group";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { v4 as uuidv4 } from "uuid";
 
 import ContactForm from "./components/ContactForm";
@@ -50,6 +50,7 @@ export default class App extends Component {
       )
     ) {
       this.setState({ duplication: true });
+      setTimeout(() => this.setState({ duplication: false }), 3000);
     } else {
       const contact = {
         id: uuidv4(),
@@ -99,7 +100,15 @@ export default class App extends Component {
     const { filter, duplication } = this.state;
     return (
       <>
-        {duplication && <Alert onShow={this.showAlert} />}
+        <CSSTransition
+          in={duplication}
+          timeout={250}
+          classNames="Alert"
+          unmountOnExit
+        >
+          <Alert />
+        </CSSTransition>
+
         <CSSTransition
           in={true}
           appear={true}
