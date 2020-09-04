@@ -35,19 +35,30 @@
   margin-left: 4px;
 }
 
-.TaskList-item-fade-enter {
+/* Animation for 1-st mounting LIST Contacts  */
+.appear {
   transform: translateX(-100%);
 }
-.TaskList-item-fade-enter-active {
-  transform: translateX(0);
-  transition: transform 500ms linear;
-}
 
-.TaskList-item-fade-exit {
+.appearActive {
   transform: translateX(0);
+  transition: transform 250ms linear;
 }
-
-.TaskList-item-fade-exit-active {
+/* Animation for LIST Contacts  */
+.enter {
   transform: translateX(-100%);
-  transition: transform 500ms linear;
+}
+
+.enterActive {
+  transform: translateX(0);
+  transition: transform 250ms linear;
+}
+
+.exit {
+  transform: translateX(0);
+}
+
+.exitActive {
+  transform: translateX(-100%);
+  transition: transform 250ms linear;
 }

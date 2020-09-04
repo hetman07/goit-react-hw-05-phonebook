@@ -1,3 +1,27 @@
+/* Animation for FILTER  */
+.enter {
+  opacity: 0;
+  transform: scale(0.1);
+}
+
+.enterActive {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 500ms linear;
+}
+
+.exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.exitActive {
+  opacity: 0;
+  transform: scale(0.1);
+  transition: all 500ms linear;
+}
+
+/*  */
 .TaskEditor {
   display: flex;
   flex-direction: column;
@@ -30,26 +54,4 @@
 
 .TaskEditorInput:focus {
   border: 1px solid #2b32b2;
-}
-
-.enter {
-  opacity: 0;
-  transform: scale(0.1);
-}
-
-.enterActive {
-  opacity: 1;
-  transform: scale(1);
-  transition: all 1500ms linear;
-}
-
-.exit {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.exitActive {
-  opacity: 0;
-  transform: scale(0.1);
-  transition: all 1500ms linear;
 }

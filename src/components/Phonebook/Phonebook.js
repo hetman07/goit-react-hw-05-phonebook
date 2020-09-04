@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
+
 import { v4 as uuidv4 } from "uuid";
 
-import ContactForm from "./components/ContactForm";
-import Filter from "./components/Filter";
-import ContactList from "./components/ContactList";
-import Alert from "./components/Alert/Alert";
+import ContactForm from "../ContactForm";
+import Filter from "../Filter";
+import ContactList from "../ContactList";
+import Alert from "../Alert";
+import Logo from "../Logo";
 
 export default class App extends Component {
   static propTypes = {
@@ -24,7 +25,7 @@ export default class App extends Component {
       { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
     ],
     filter: "",
-    duplication: false,
+    txtMsg: "",
   };
 
   componentDidMount() {
@@ -49,8 +50,11 @@ export default class App extends Component {
         contact => contact.name.toLowerCase() === name.toLowerCase(),
       )
     ) {
-      this.setState({ duplication: true });
-      setTimeout(() => this.setState({ duplication: false }), 3000);
+      this.setState({ txtMsg: "Contact is dublication!" });
+      setTimeout(() => this.setState({ txtMsg: "" }), 3000);
+    } else if (name === "" || number === "") {
+      this.setState({ txtMsg: "Contact is EMPTY!" });
+      setTimeout(() => this.setState({ txtMsg: "" }), 3000);
     } else {
       const contact = {
         id: uuidv4(),
@@ -88,59 +92,22 @@ export default class App extends Component {
     );
   };
 
-  showAlert = e => {
-    const { duplication } = this.state;
-    if (duplication) {
-      setTimeout(e, 100);
-    }
-  };
-
   render() {
     const visibleContacts = this.getVisibleContacts();
-    const { filter, duplication } = this.state;
+    const { filter, txtMsg } = this.state;
     return (
       <>
-        <CSSTransition
-          in={duplication}
-          timeout={250}
-          classNames="Alert"
-          unmountOnExit
-        >
-          <Alert />
-        </CSSTransition>
-
-        <CSSTransition
-          in={true}
-          appear={true}
-          timeout={500}
-          classNames="Logo"
-          unmountOnExit
-        >
-          <h1>Phonebook</h1>
-        </CSSTransition>
+        <Alert onShow={txtMsg} />
+        <Logo text={"Phonebook"} />
         <ContactForm onAddContact={this.addContact} />
 
-        <CSSTransition
-          in={visibleContacts.length > 1}
-          timeout={250}
-          classNames="Filter"
-          unmountOnExit
-        >
-          <Filter value={filter} onChangeFilter={this.changeFilter} />
-        </CSSTransition>
+        <Filter
+          value={filter}
+          onChangeFilter={this.changeFilter}
+          lengthContacts={visibleContacts.length}
+        />
 
-        <CSSTransition
-          in={visibleContacts.length > 0}
-          appear={true}
-          timeout={250}
-          classNames="ListView"
-          unmountOnExit
-        >
-          <ContactList
-            contacts={visibleContacts}
-            onRemove={this.removeContact}
-          />
-        </CSSTransition>
+        <ContactList contacts={visibleContacts} onRemove={this.removeContact} />
       </>
     );
   }

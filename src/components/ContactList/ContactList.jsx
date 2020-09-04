@@ -1,25 +1,29 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PropTypes from "prop-types";
-import "./ContactList.css";
+
+import styles from "./ContactList.module.css";
 
 const ContactList = ({ contacts, onRemove }) => {
   return (
-    <div className="TaskEditor">
+    <div className={styles.TaskEditor}>
       <h2>Contacts</h2>
       <TransitionGroup component="ul">
         {contacts.map(cont => (
           <CSSTransition
+            in={contacts.length > 0}
+            appear={true}
             key={cont.id}
             timeout={250}
-            classNames="TaskList-item-fade"
+            classNames={{ ...styles }}
+            unmountOnExit
           >
-            <li className="TaskListItem" key={cont.id}>
-              <span className="TaskListText">{cont.name}: </span>
-              <span className="TaskListText">{cont.number}</span>
+            <li className={styles.TaskListItem} key={cont.id}>
+              <span className={styles.TaskListText}>{cont.name}: </span>
+              <span className={styles.TaskListText}>{cont.number}</span>
               <button
                 type="button"
-                className="TaskListButton"
+                className={styles.TaskListButton}
                 onClick={() => onRemove(cont.id)}
               >
                 Delete
