@@ -52,7 +52,7 @@ export default class App extends Component {
     ) {
       this.setState({ txtMsg: "Contact is dublication!" });
       setTimeout(() => this.setState({ txtMsg: "" }), 3000);
-    } else if (name === "" || number === "") {
+    } else if (!name || !number) {
       this.setState({ txtMsg: "Contact is EMPTY!" });
       setTimeout(() => this.setState({ txtMsg: "" }), 3000);
     } else {
